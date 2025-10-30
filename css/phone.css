@@ -1,0 +1,192 @@
+/* Scoped styling for intl-tel-input without touching global resets */
+
+.promoform-container .iti { width: 100%; font-family: inherit; position: relative; }
+/* Ensure text does not overlap dial code area: padding-left set dynamically in JS, but give a minimum */
+.promoform-container .iti--allow-dropdown input { padding-right: 46px; }
+.promoform-container .iti__flag-container { z-index: 3; }
+.promoform-container .iti__selected-flag { background: #fff; padding: 6px 8px; border-right: 1px solid #ddd; }
+.promoform-container .iti__selected-flag { 
+  border-top-left-radius: 6px; 
+  border-bottom-left-radius: 6px; 
+  height: 100%; 
+  display: flex; 
+  align-items: center; 
+  background-clip: padding-box; 
+}
+
+/* Match border + background with input for seamless integration */
+.promoform-container .iti input[type=tel] {
+  border-radius: 6px;
+}
+.promoform-container .iti { position: relative; }
+.promoform-container .iti__flag-container { border: 1px solid #c7c7c7; border-right: none; background:#fff; }
+.promoform-container .iti.phone-focused .iti__flag-container { border-color:#0a84ff; box-shadow:0 0 0 2px rgba(10,132,255,.20); }
+.promoform-container .iti.phone-focused input[type=tel] { border-color:#0a84ff; box-shadow:0 0 0 2px rgba(10,132,255,.20); }
+
+/* Hover / active for flag area */
+.promoform-container .iti__flag-container:hover { background:#f5f8ff; cursor:pointer; }
+.promoform-container .iti__flag-container:active { background:#e2efff; }
+
+/* Keep arrow visually centered */
+.promoform-container .iti__selected-flag .iti__arrow { margin-left:6px; }
+
+/* Remove default outline & rely on custom focus visuals */
+.promoform-container .iti__flag-container:focus { outline:none; }
+
+/* Ensure the flag container stretches full height so its background matches input */
+.promoform-container .iti__flag-container { height: 100%; top: 0 !important; bottom: 0 !important; }
+
+/* When input focused, subtly highlight the flag area too */
+.promoform-container .iti input[type=tel]:focus ~ .iti__flag-container .iti__selected-flag,
+.promoform-container .iti input[type=tel]:focus + .iti__flag-container .iti__selected-flag { box-shadow: 0 0 0 2px rgba(10,132,255,.15); }
+.promoform-container .iti__arrow { border-top-color: #333; }
+.promoform-container .iti__country-list { 
+  z-index: 2147483645; /* very high to surpass buttons */
+  max-height: 260px; 
+  box-shadow: 0 6px 20px rgba(0,0,0,.25); 
+  border-radius: 8px; 
+  scrollbar-width: thin;
+  background: #fff;
+}
+.promoform-container .iti__country-list::-webkit-scrollbar { width: 6px; }
+.promoform-container .iti__country-list::-webkit-scrollbar-track { background: #f3f3f3; }
+.promoform-container .iti__country-list::-webkit-scrollbar-thumb { background: #bbb; border-radius: 3px; }
+
+/* Input visual tweaks */
+.promoform-container input[type=tel] { 
+  background: #fff; 
+  border: 1px solid #c7c7c7; 
+  border-radius: 6px; 
+  height: 44px; 
+  line-height: 44px; 
+  font-size: 15px; 
+  transition: border-color .2s, box-shadow .2s;
+}
+.promoform-container input[type=tel]:focus { 
+  outline: none; 
+  border-color: #0a84ff; 
+  box-shadow: 0 0 0 2px rgba(10,132,255,.25);
+}
+
+/* Validation label */
+[data-phone-label] { 
+  font-weight: 500; 
+  min-height: 18px; 
+}
+[data-phone-label][style*='green'] { color: #0a8f3b !important; }
+[data-phone-label][style*='red'] { color: #d93025 !important; }
+
+/* High-contrast dial code area (when separateDialCode) */
+.promoform-container .iti--separate-dial-code .iti__selected-dial-code { 
+  font-weight: 600; 
+  color: #222;
+}
+
+/* Hover styles for country list */
+.promoform-container .iti__country { display: flex; align-items: center; gap: 6px; }
+.promoform-container .iti__country small { opacity: .55; }
+.promoform-container .iti__country:hover { background: #f5faff; }
+.promoform-container .iti__country.iti__highlight { background: #e8f3ff; }
+
+/* Search input layout inside dropdown */
+.iti__search-input + .iti__search-input { display: none; } /* defensive duplicate removal */
+.iti__search-input { 
+  padding: 8px 10px 8px 34px; 
+  border: 1px solid #d0d0d0; 
+  border-radius: 6px; 
+  margin: 8px 8px 6px; 
+  font-size: 14px; 
+  width: calc(100% - 16px);
+  background: #fff;
+  position: relative;
+}
+.iti__search-input:focus { outline: none; border-color: #0a84ff; box-shadow: 0 0 0 2px rgba(10,132,255,.15); }
+
+/* Add search icon using pseudo-element (if plugin version doesn't include one) */
+.iti__search-input-wrapper { position: relative; }
+.iti__search-input-wrapper:before { 
+  content: ""; 
+  position: absolute; 
+  top: 50%; 
+  left: 16px; 
+  width: 14px; 
+  height: 14px; 
+  transform: translateY(-50%); 
+  background: url('data:image/svg+xml;utf8,<svg fill="%23999" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 001.48-5.34C15.35 5.59 13.28 3.5 10.75 3.5S6.15 5.59 5.84 8.39a6.5 6.5 0 0010.31 5.86l.27.28v.79l4.75 4.74 1.49-1.49L15.5 14zm-4.75 0A4.75 4.75 0 1115.5 9.25 4.75 4.75 0 0110.75 14z"/></svg>') center/14px 14px no-repeat;
+  pointer-events: none;
+}
+
+/* Wrap actual input in a wrapper if not present (JS could enhance), fallback styling */
+.iti__search-input:not([data-wrapped]) { background-position: 10px center; }
+
+/* Prevent button overlap */
+.promoform-container .order-form button { position: relative; z-index: 1; }
+
+/* Primary order button redesign */
+.btn-order-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 12px 18px;
+  background: #21a654;
+  background-image: linear-gradient(180deg,#25b35c 0%, #1f944c 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border: 1px solid #1c8243;
+  border-radius: 8px;
+  letter-spacing: .5px;
+  text-transform: none;
+  cursor: pointer;
+  transition: background .18s, box-shadow .18s, transform .15s;
+  box-shadow: 0 4px 10px -2px rgba(33,166,84,.45), 0 2px 4px rgba(0,0,0,.15);
+  line-height: 1.1;
+}
+.btn-order-primary:hover {
+  background: #35c86a;
+  background-image: linear-gradient(180deg,#44d477 0%, #30b85f 100%);
+}
+.btn-order-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 8px -2px rgba(33,166,84,.4), 0 1px 3px rgba(0,0,0,.2);
+}
+.btn-order-primary:focus-visible {
+  outline: 2px solid #33c870;
+  outline-offset: 2px;
+}
+.btn-order-primary:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 480px) {
+  .promoform-container .iti__country { padding: 6px 10px; }
+  .promoform-container input[type=tel] { height: 50px; line-height: 50px; font-size: 16px; }
+}
+
+/* Ensure dropdown not clipped by container overflow (if any) */
+.promoform-container { position: relative; }
+
+/* Defensive: if any parent sets overflow hidden, force visible for country list ancestor */
+
+/* New price comparison layout */
+.price-compare { display: flex; justify-content: space-between; gap: 12px; margin: 12px 0 18px; }
+.price-block { flex:1; background:#f5f8f6; border:1px solid #dbe6df; border-radius:8px; padding:10px 8px; text-align:center; }
+.price-label { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:#2a5039; margin-bottom:4px; }
+.large-price { font-size:26px; font-weight:700; line-height:1; }
+.large-price.price-old { color:#a63b3b; }
+.large-price.price-new { color:#1b7f44; }
+.price-old s { color:#a63b3b; text-decoration-thickness:2px; }
+
+/* Stock alert below button */
+.stock-alert { margin-top:10px; font-size:13px; font-weight:600; text-align:center; background:#ffe4e4; color:#b30000; padding:8px 10px; border:1px solid #ffb7b7; border-radius:6px; }
+.stock-alert .stock-number { background:#c80000; color:#fff; padding:2px 6px; border-radius:4px; font-weight:700; }
+
+@media (max-width:480px){
+  .price-compare { flex-direction:column; }
+  .large-price { font-size:30px; }
+}

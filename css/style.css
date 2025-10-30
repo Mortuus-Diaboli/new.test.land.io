@@ -2741,8 +2741,8 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
 
 .face__product {
   position: absolute;
-  bottom: -225px;
-  left: 50%;
+  bottom: -230px;
+  left: 58%;
   margin-left: -25px;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);

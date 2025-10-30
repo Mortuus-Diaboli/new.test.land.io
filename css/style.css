@@ -4510,6 +4510,13 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
   .face__product {
     margin-right: auto;
     margin-left: auto;
+    text-align: center;
+  }
+
+  .face__product img {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
   }
 
   .face__subtitle {
